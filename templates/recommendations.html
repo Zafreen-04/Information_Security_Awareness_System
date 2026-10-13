@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Recommendations Catalog | {{ config.PROJECT_TITLE }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header Block -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 mb-2 fw-semibold">
+                <i class="fa-solid fa-bullseye me-1"></i> Behavioural Interventions
+            </span>
+            <h2 class="fw-bold text-dark mb-0">Actionable Security Recommendations</h2>
+            <p class="text-muted small mb-0">Evidence-based guidelines designed to remediate behavioral security vulnerabilities among students and educators.</p>
+        </div>
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="fa-solid fa-chart-line me-1"></i> View Live Scores
+            </a>
+        </div>
+    </div>
+
+    <!-- Live Empirical Alert Banner -->
+    {% if stats.has_data %}
+    <div class="card-academic p-3 mb-4 bg-light border-primary-subtle">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div>
+                <span class="badge bg-primary me-2">Live Empirical Status</span>
+                <span class="fw-semibold text-dark">Current System Composite Score: {{ stats.overall_average }}% ({{ stats.overall_level }})</span>
+            </div>
+            <div class="d-flex gap-3 small">
+                <span>Password: <b class="text-{{ 'success' if stats.password_level == 'Good' else ('warning' if stats.password_level == 'Average' else 'danger') }}">{{ stats.password_avg }}%</b></span>
+                <span>Social Media: <b class="text-{{ 'success' if stats.social_media_level == 'Good' else ('warning' if stats.social_media_level == 'Average' else 'danger') }}">{{ stats.social_media_avg }}%</b></span>
+                <span>Email: <b class="text-{{ 'success' if stats.email_level == 'Good' else ('warning' if stats.email_level == 'Average' else 'danger') }}">{{ stats.email_avg }}%</b></span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Recommendation Catalog Grid -->
+    <div class="row g-4 mb-5">
+        {% for rec in catalog %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card-academic h-100 p-4 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="p-2.5 rounded-3 bg-{{ rec.color }} bg-opacity-10 text-{{ rec.color }}">
+                        <i class="fa-solid {{ rec.icon }} fa-xl"></i>
+                    </div>
+                    <span class="badge bg-light text-secondary border small">{{ rec.category }}</span>
+                </div>
+                <h5 class="fw-bold text-dark mb-2">{{ rec.title }}</h5>
+                <p class="text-muted small flex-grow-1 mb-3">{{ rec.description }}</p>
+                <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                    <span><i class="fa-solid fa-user-group me-1"></i> Target: <b>{{ rec.target }}</b></span>
+                    <span class="badge bg-light text-dark border">{{ rec.frequency }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Teacher Role-Model Spotlight Section -->
+    <div class="card-academic p-4 mb-4 border-warning-subtle bg-warning bg-opacity-10">
+        <div class="row align-items-center gy-3">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="fa-solid fa-chalkboard-user text-warning fa-2x"></i>
+                    <h5 class="fw-bold text-dark mb-0">The Role of High School Educators as Security Role Models</h5>
+                </div>
+                <p class="text-muted small mb-0">
+                    The research paper strongly emphasizes that high school teachers are primary role models for youth. 
+                    When teachers practice poor password habits (e.g. sharing passwords or using simplistic phrases) or fall prey to email phishing, 
+                    it normalizes risky behaviour among students. Specialized educator enablement programs are essential for establishing school-wide cyber resilience.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('download_pdf_report') }}" class="btn btn-dark shadow-sm">
+                    <i class="fa-solid fa-file-pdf me-1"></i> Download Institutional Plan (PDF)
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

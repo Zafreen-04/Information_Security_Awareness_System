@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Home | {{ config.PROJECT_TITLE }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Hero Banner -->
+    <div class="hero-section text-center text-md-start">
+        <div class="row align-items-center">
+            <div class="col-lg-8 hero-content">
+                <span class="badge bg-info text-dark mb-3 px-3 py-2 fw-semibold">
+                    <i class="fa-solid fa-graduation-cap me-1"></i> Empirical Academic Research Project
+                </span>
+                <h1 class="display-5 fw-bold mb-3">
+                    Information Security Awareness Measurement System
+                </h1>
+                <p class="lead text-light opacity-90 mb-4" style="max-width: 720px;">
+                    Assessing Information Security Behaviour of Students and Teachers through validated Likert-scale metrics, psychometric evaluation, and targeted behavioural recommendations.
+                </p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
+                    <a href="{{ url_for('questionnaire') }}" class="btn btn-primary btn-lg px-4 shadow">
+                        <i class="fa-solid fa-pen-to-square me-2"></i> Take Assessment
+                    </a>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-lg px-4">
+                        <i class="fa-solid fa-chart-line me-2"></i> View Dashboard
+                    </a>
+                    <a href="{{ url_for('about') }}" class="btn btn-secondary btn-lg px-4 bg-opacity-25 border-light-subtle">
+                        <i class="fa-solid fa-book-open me-2"></i> About Study
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block text-center hero-content">
+                <div class="p-4 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-25 backdrop-blur">
+                    <i class="fa-solid fa-shield-halved display-1 text-info opacity-75 mb-3"></i>
+                    <h5 class="text-white fw-bold">Three Core Focus Areas</h5>
+                    <p class="text-light small mb-0 opacity-75">
+                        Evaluating credential hygiene, social platform privacy, and phishing email resilience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Methodology Flow Diagram -->
+    <div class="card-academic p-4 mb-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h5 class="fw-bold mb-0 text-dark">
+                <i class="fa-solid fa-diagram-project text-primary me-2"></i> Assessment Methodology Flow
+            </h5>
+            <span class="badge bg-light text-secondary border">Academic Workflow</span>
+        </div>
+        <p class="text-muted small mb-3">
+            Reproducing the empirical research sequence from survey formulation to actionable recommendation synthesis.
+        </p>
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <i class="fa-solid fa-list-check text-primary"></i>
+                <span>Questionnaire</span>
+            </div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-step">
+                <i class="fa-solid fa-database text-info"></i>
+                <span>Response Collection</span>
+            </div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-step">
+                <i class="fa-solid fa-calculator text-warning"></i>
+                <span>Validity & Reliability</span>
+            </div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-step">
+                <i class="fa-solid fa-chart-pie text-success"></i>
+                <span>Awareness Measurement</span>
+            </div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-step">
+                <i class="fa-solid fa-scale-balanced text-primary"></i>
+                <span>Comparison</span>
+            </div>
+            <i class="fa-solid fa-arrow-right flow-arrow"></i>
+            <div class="flow-step bg-primary text-white border-primary">
+                <i class="fa-solid fa-bullseye text-warning"></i>
+                <span>Recommendations</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three Focus Area Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card-academic h-100 p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="rounded-3 bg-primary bg-opacity-10 p-3 text-primary">
+                        <i class="fa-solid fa-key fa-2x"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">Password Management</h5>
+                        <small class="text-muted">ISBP1 &bull; ISBP2 &bull; ISBP3</small>
+                    </div>
+                </div>
+                <p class="text-muted small mb-3">
+                    Assesses password diversity across services, prohibition of password sharing with friends/family, and utilization of complex character combinations (letters, numbers, symbols).
+                </p>
+                <div class="bg-light p-3 rounded-3 small">
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Paper Student Avg:</span>
+                        <strong class="text-success">81.7% (Good)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted">
+                        <span>Paper Teacher Avg:</span>
+                        <strong class="text-danger">35.9% (Poor)</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-academic h-100 p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="rounded-3 bg-info bg-opacity-10 p-3 text-info">
+                        <i class="fa-solid fa-users-viewfinder fa-2x"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">Social Media Use</h5>
+                        <small class="text-muted">ISBS1 &bull; ISBS2 &bull; ISBS3</small>
+                    </div>
+                </div>
+                <p class="text-muted small mb-3">
+                    Measures user attentiveness toward reading platform privacy settings, evaluating negative consequences prior to publishing content, and active filtering of social posts.
+                </p>
+                <div class="bg-light p-3 rounded-3 small">
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Paper Student Avg:</span>
+                        <strong class="text-success">87.4% (Good)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted">
+                        <span>Paper Teacher Avg:</span>
+                        <strong class="text-warning">59.4% (Average)</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-academic h-100 p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="rounded-3 bg-warning bg-opacity-10 p-3 text-warning">
+                        <i class="fa-solid fa-envelope-shield fa-2x"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">Email Use</h5>
+                        <small class="text-muted">ISBE1 &bull; ISBE2 &bull; ISBE3</small>
+                    </div>
+                </div>
+                <p class="text-muted small mb-3">
+                    Evaluates phishing defenses: avoiding suspicious links even from known contacts, refraining from opening unverified sender attachments, and avoiding unknown links.
+                </p>
+                <div class="bg-light p-3 rounded-3 small">
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Paper Student Avg:</span>
+                        <strong class="text-success">88.9% (Good)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted">
+                        <span>Paper Teacher Avg:</span>
+                        <strong class="text-danger">43.6% (Poor)</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Research Reference & Quick Action Banner -->
+    <div class="card-academic p-4 bg-light border-primary-subtle">
+        <div class="row align-items-center gy-3">
+            <div class="col-md-8">
+                <h5 class="fw-bold text-dark mb-1">
+                    <i class="fa-solid fa-microscope text-primary me-2"></i> Rigorous Academic Methodology
+                </h5>
+                <p class="text-muted small mb-0">
+                    Calculates Pearson product-moment item-total correlation for validity testing, Cronbach's Alpha for internal consistency, and generates comprehensive ReportLab PDF summaries and Excel/CSV exports.
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a href="{{ url_for('questionnaire') }}" class="btn btn-primary me-2">
+                    <i class="fa-solid fa-play me-1"></i> Start Assessment
+                </a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-chart-column me-1"></i> Live Analytics
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

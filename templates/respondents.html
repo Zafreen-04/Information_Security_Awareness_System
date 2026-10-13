@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Respondents Directory | {{ config.PROJECT_TITLE }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header Block -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 mb-2 fw-semibold">
+                <i class="fa-solid fa-users me-1"></i> Respondent Registry
+            </span>
+            <h2 class="fw-bold text-dark mb-0">Survey Respondents & Assessment Records</h2>
+            <p class="text-muted small mb-0">View, search, filter, and review individual evaluation submissions.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{{ url_for('export_csv') }}" class="btn btn-outline-success btn-sm shadow-sm">
+                <i class="fa-solid fa-file-csv me-1"></i> Export CSV
+            </a>
+            <a href="{{ url_for('export_excel') }}" class="btn btn-outline-success btn-sm shadow-sm">
+                <i class="fa-solid fa-file-excel me-1"></i> Export Excel
+            </a>
+            <a href="{{ url_for('questionnaire') }}" class="btn btn-primary btn-sm shadow-sm">
+                <i class="fa-solid fa-plus me-1"></i> New Assessment
+            </a>
+        </div>
+    </div>
+
+    <!-- Filter & Search Controls Card -->
+    <div class="card-academic p-3 mb-4">
+        <form method="GET" action="{{ url_for('respondents') }}" class="row g-2 align-items-center">
+            <div class="col-md-5">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="text" id="table-search-input" name="q" class="form-control" placeholder="Search by name or school..." value="{{ search_query }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select id="filter-type-select" name="type" class="form-select form-select-sm">
+                    <option value="" {% if not filter_type %}selected{% endif %}>All Respondent Types</option>
+                    <option value="Student" {% if filter_type == 'Student' %}selected{% endif %}>Students Only</option>
+                    <option value="Teacher" {% if filter_type == 'Teacher' %}selected{% endif %}>Teachers Only</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="filter-level-select" name="level" class="form-select form-select-sm">
+                    <option value="" {% if not filter_level %}selected{% endif %}>All Awareness Levels</option>
+                    <option value="Good" {% if filter_level == 'Good' %}selected{% endif %}>Good (80 - 100%)</option>
+                    <option value="Average" {% if filter_level == 'Average' %}selected{% endif %}>Average (60 - 79%)</option>
+                    <option value="Poor" {% if filter_level == 'Poor' %}selected{% endif %}>Poor (0 - 59%)</option>
+                </select>
+            </div>
+            <div class="col-md-1 d-flex gap-1">
+                <button type="submit" class="btn btn-dark btn-sm w-100">Filter</button>
+                {% if search_query or filter_type or filter_level %}
+                <a href="{{ url_for('respondents') }}" class="btn btn-outline-secondary btn-sm" title="Clear Filters"><i class="fa-solid fa-rotate-left"></i></a>
+                {% endif %}
+            </div>
+        </form>
+        <div class="d-flex justify-content-between align-items-center small text-muted mt-2 pt-2 border-top">
+            <span id="filtered-count-display">Displaying {{ respondents|length }} record(s)</span>
+            <span>Sorted by most recent submission</span>
+        </div>
+    </div>
+
+    <!-- Respondents Data Table -->
+    <div class="card-academic overflow-hidden mb-5">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="respondents-table">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 5%;">ID</th>
+                        <th style="width: 20%;">Name</th>
+                        <th style="width: 12%;">Type</th>
+                        <th style="width: 8%;">Age / Gender</th>
+                        <th style="width: 22%;">School / Institution</th>
+                        <th style="width: 13%;" class="text-center">Overall Score</th>
+                        <th style="width: 10%;" class="text-center">Level</th>
+                        <th style="width: 10%;" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in respondents %}
+                    <tr data-name="{{ r.name }}" data-school="{{ r.school }}" data-type="{{ r.respondent_type }}" data-level="{{ r.awareness_level }}">
+                        <td class="text-muted fw-bold">#{{ r.id }}</td>
+                        <td>
+                            <a href="{{ url_for('result', respondent_id=r.id) }}" class="fw-bold text-decoration-none text-dark">
+                                {{ r.name }}
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge {% if r.respondent_type == 'Student' %}bg-primary-subtle text-primary border border-primary-subtle{% else %}bg-warning-subtle text-warning border border-warning-subtle{% endif %}">
+                                <i class="fa-solid {% if r.respondent_type == 'Student' %}fa-graduation-cap{% else %}fa-chalkboard-user{% endif %} me-1"></i>
+                                {{ r.respondent_type }}
+                            </span>
+                        </td>
+                        <td class="small text-muted">{{ r.age }} yrs &bull; {{ r.gender }}</td>
+                        <td class="small text-truncate" style="max-width: 220px;" title="{{ r.school }}">{{ r.school }}</td>
+                        <td class="text-center">
+                            <span class="fw-bold">{{ r.overall_score }}%</span>
+                            <div class="progress mt-1" style="height: 4px;">
+                                <div class="progress-bar progress-bar-{{ r.awareness_level.lower() }}" style="width: {{ r.overall_score }}%;"></div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge badge-{{ r.awareness_level.lower() }}">
+                                {{ r.awareness_level }}
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <a href="{{ url_for('result', respondent_id=r.id) }}" class="btn btn-outline-primary btn-sm py-0 px-2" title="View Individual Result">
+                                <i class="fa-solid fa-eye me-1"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-muted">
+                            <i class="fa-solid fa-folder-open fa-2x mb-2 d-block text-secondary"></i>
+                            No respondent records match your criteria. 
+                            <a href="{{ url_for('questionnaire') }}" class="alert-link ms-1">Submit an assessment</a> or 
+                            <form action="{{ url_for('load_demo_data_route') }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-link p-0 align-baseline">load demo data</button>.
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+name,respondent_type,age,gender,school,ISBP1,ISBP2,ISBP3,ISBS1,ISBS2,ISBS3,ISBE1,ISBE2,ISBE3
+Aarav Sharma,Student,16,Male,Apex International High School,4,5,4,4,5,4,5,5,4
+Ananya Patel,Student,15,Female,Oakridge Model Academy,5,4,5,4,4,5,5,4,5
+Rohan Gupta,Student,17,Male,St. Jude High School,4,4,4,5,4,4,4,5,5
+Diya Nair,Student,16,Female,Metro Science High School,5,5,4,5,5,5,4,5,5
+Ishaan Verma,Student,15,Male,Greenwood High School,4,4,5,4,4,4,5,4,4
+Kavya Iyer,Student,16,Female,Apex International High School,5,5,5,4,5,4,5,5,5
+Aditya Rao,Student,17,Male,Oakridge Model Academy,4,4,3,4,4,5,4,4,5
+Meera Joshi,Student,16,Female,St. Jude High School,5,4,4,5,4,4,5,5,4
+Siddharth Sen,Student,15,Male,Metro Science High School,4,5,4,4,5,5,4,5,5
+Pooja Hegde,Student,17,Female,Greenwood High School,4,4,4,4,4,4,4,4,5
+Tanvi Kulkarni,Student,16,Female,Apex International High School,5,5,5,5,5,4,5,5,4
+Harsh Vardhan,Student,16,Male,Oakridge Model Academy,4,3,4,4,4,4,5,4,5
+Sneha Reddy,Student,15,Female,St. Jude High School,5,4,5,5,4,5,4,5,5
+Vikram Malhotra,Student,17,Male,Metro Science High School,3,4,4,4,5,4,4,4,4
+Riya Mukherjee,Student,16,Female,Greenwood High School,5,5,4,4,4,5,5,5,5
+Kunal Kapoor,Student,15,Male,Apex International High School,4,4,5,5,4,4,4,5,4
+Bhavna Das,Student,17,Female,Oakridge Model Academy,4,5,4,4,5,4,5,4,5
+Nikhil Chopra,Student,16,Male,St. Jude High School,3,4,4,4,4,4,4,4,4
+Prisha Saxena,Student,15,Female,Metro Science High School,5,4,5,5,5,5,5,5,5
+Aryan Bhatt,Student,17,Male,Greenwood High School,4,4,3,4,4,4,5,4,4
+Tara Menon,Student,16,Female,Apex International High School,5,5,4,4,5,5,4,5,5
+Varun Nambiar,Student,16,Male,Oakridge Model Academy,4,3,4,4,4,4,4,4,5
+Simran Kaur,Student,15,Female,St. Jude High School,5,4,5,5,4,4,5,5,4
+Devansh Singhal,Student,17,Male,Metro Science High School,4,4,4,4,5,4,4,5,4
+Anika Chawla,Student,16,Female,Greenwood High School,5,5,4,5,4,5,5,4,5
+Manish Tiwari,Student,16,Male,Apex International High School,3,4,4,4,4,4,4,4,4
+Zoya Khan,Student,15,Female,Oakridge Model Academy,5,4,5,4,5,4,5,5,5
+Gaurav Deshmukh,Student,17,Male,St. Jude High School,4,4,3,4,4,5,4,4,4
+Dr. Rajeshwar Prasad,Teacher,48,Male,Apex International High School,2,1,2,3,3,3,2,2,3
+Sunita Deshpande,Teacher,42,Female,Oakridge Model Academy,2,2,2,3,4,3,3,2,2
+Mohan Kumar S,Teacher,52,Male,St. Jude High School,1,2,2,2,3,3,2,2,2
+Lakshmi Sundaram,Teacher,39,Female,Metro Science High School,2,2,1,4,3,4,3,3,2
+Bhaskar Ghosh,Teacher,56,Male,Greenwood High School,1,1,2,3,2,3,2,1,2
+Rekha Bannerjee,Teacher,44,Female,Apex International High School,2,2,2,3,3,3,2,3,2
+Alok Nath Pandey,Teacher,50,Male,Oakridge Model Academy,2,1,1,2,3,2,2,2,3
+Geeta Shrestha,Teacher,36,Female,St. Jude High School,3,2,2,4,3,3,3,2,3
+Ramesh Kothari,Teacher,47,Male,Metro Science High School,1,2,2,3,3,2,2,2,2
+Nirmala Murthy,Teacher,54,Female,Greenwood High School,2,1,2,3,2,3,2,3,2
+Satish Chandra,Teacher,43,Male,Apex International High School,2,2,1,3,4,3,3,2,2
+Padma Vasudevan,Teacher,38,Female,Oakridge Model Academy,3,2,2,4,3,4,3,3,3
+Gopal Krishnan,Teacher,51,Male,St. Jude High School,1,2,1,2,3,2,2,2,2
+Sarita Mishra,Teacher,45,Female,Metro Science High School,2,2,2,3,3,3,2,2,3
+Umesh Narang,Teacher,49,Male,Greenwood High School,2,1,2,3,2,2,2,2,2
+Kalyani Raman,Teacher,41,Female,Apex International High School,2,2,2,4,3,3,3,2,3
+Vipin Agrawal,Teacher,53,Male,Oakridge Model Academy,1,2,1,3,3,2,2,2,2

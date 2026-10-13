@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}About Study & Methodology | {{ config.PROJECT_TITLE }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header Block -->
+    <div class="mb-4">
+        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 mb-2 fw-semibold">
+            <i class="fa-solid fa-book-open me-1"></i> Academic Documentation & Specification
+        </span>
+        <h2 class="fw-bold text-dark">About the Information Security Awareness Measurement System</h2>
+        <p class="text-muted">
+            Comprehensive overview of the theoretical foundation, questionnaire design, psychometric metrics, and statistical methodology.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Main Documentation Column -->
+        <div class="col-lg-8">
+            <!-- 1. Purpose of the Project -->
+            <div class="card-academic p-4 mb-4">
+                <h4 class="fw-bold text-dark mb-3">
+                    <i class="fa-solid fa-bullseye text-primary me-2"></i> 1. Project Purpose & Background
+                </h4>
+                <p class="text-secondary">
+                    In educational ecosystems, high school students and teachers interact daily with internet resources, social platforms, and educational management portals. However, technical safeguards alone cannot mitigate threats stemming from human behaviour.
+                </p>
+                <p class="text-secondary mb-0">
+                    This project implements an interactive software system designed to operationalize the empirical research methodology outlined in the paper:
+                    <br><strong class="text-dark">"Measuring information security behaviour of high school students and teachers"</strong>.
+                    Rather than relying solely on abstract surveys, this platform collects real-time responses, stores data persistently in an SQLite database, calculates behavioral scores, executes psychometric validation tests, generates interactive dashboards, and synthesizes tailored remediation plans.
+                </p>
+            </div>
+
+            <!-- 2. Focus Areas & 9-Item Questionnaire -->
+            <div class="card-academic p-4 mb-4">
+                <h4 class="fw-bold text-dark mb-3">
+                    <i class="fa-solid fa-list-check text-primary me-2"></i> 2. The Three Focus Areas & Questionnaire Items
+                </h4>
+                <p class="text-secondary mb-3">
+                    The assessment investigates three primary human-centric cybersecurity vectors, evaluated on a standard 5-point Likert scale (1 = Strongly Disagree to 5 = Strongly Agree):
+                </p>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered small align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 12%;">Code</th>
+                                <th style="width: 25%;">Focus Area</th>
+                                <th style="width: 63%;">Survey Statement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge bg-primary">ISBP1</span></td>
+                                <td>Password Management</td>
+                                <td>"I always use different passwords for each of my accounts."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-primary">ISBP2</span></td>
+                                <td>Password Management</td>
+                                <td>"I never share my passwords with my friends or family."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-primary">ISBP3</span></td>
+                                <td>Password Management</td>
+                                <td>"I always use a combination of numbers, letters and symbols to make a password."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-info text-dark">ISBS1</span></td>
+                                <td>Social Media Use</td>
+                                <td>"I always read the privacy settings of my social media or applications."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-info text-dark">ISBS2</span></td>
+                                <td>Social Media Use</td>
+                                <td>"I always think about the negative effect that might happen before posting something on my social media."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-info text-dark">ISBS3</span></td>
+                                <td>Social Media Use</td>
+                                <td>"I always filter what I would post on social media."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-warning text-dark">ISBE1</span></td>
+                                <td>Email Use</td>
+                                <td>"I never click on suspicious links even if they are from people that I know."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-warning text-dark">ISBE2</span></td>
+                                <td>Email Use</td>
+                                <td>"I never open a file that has been sent to me by people that I don't know."</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-warning text-dark">ISBE3</span></td>
+                                <td>Email Use</td>
+                                <td>"I never click on links that are sent to me from people that I don't know."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3. Scoring System & Awareness Classification -->
+            <div class="card-academic p-4 mb-4">
+                <h4 class="fw-bold text-dark mb-3">
+                    <i class="fa-solid fa-calculator text-primary me-2"></i> 3. Scoring System & Classification Rubric
+                </h4>
+                <p class="text-secondary mb-2">
+                    Likert answers (1 to 5) are converted to percentages using the formula:
+                </p>
+                <div class="bg-light p-3 rounded-3 text-center my-3 font-monospace">
+                    percentage = (answer / 5) &times; 100
+                </div>
+                <p class="text-secondary small mb-3">
+                    Focus area scores equal the arithmetic mean of their 3 constituent percentages. The composite overall score equals the mean of all 9 items. Scores are then mapped into the paper's three discrete categories:
+                </p>
+                <div class="row g-2 text-center small">
+                    <div class="col-md-4">
+                        <div class="p-3 rounded-3 bg-success bg-opacity-10 border border-success">
+                            <h6 class="fw-bold text-success mb-1">Good</h6>
+                            <div>80% &ndash; 100%</div>
+                            <small class="text-muted">High security awareness</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded-3 bg-warning bg-opacity-10 border border-warning">
+                            <h6 class="fw-bold text-warning mb-1">Average</h6>
+                            <div>60% &ndash; 79%</div>
+                            <small class="text-muted">Moderate awareness</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded-3 bg-danger bg-opacity-10 border border-danger">
+                            <h6 class="fw-bold text-danger mb-1">Poor</h6>
+                            <div>0% &ndash; 59%</div>
+                            <small class="text-muted">Low awareness, high vulnerability</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Validity & Reliability Methodology -->
+            <div class="card-academic p-4 mb-4">
+                <h4 class="fw-bold text-dark mb-3">
+                    <i class="fa-solid fa-square-poll-vertical text-primary me-2"></i> 4. Psychometric Validity & Reliability
+                </h4>
+                <p class="text-secondary small mb-2">
+                    In empirical social science and psychometrics, survey validity and reliability must be mathematically proven:
+                </p>
+                <ul class="text-secondary small mb-0 ps-3">
+                    <li class="mb-2">
+                        <b>Pearson Item-Total Correlation (Validity):</b> Evaluates whether each item correlates significantly with the overall score. The calculated correlation coefficient <code>r</code> must exceed the critical value <code>r_crit</code> derived from the two-tailed Student's t distribution with degrees of freedom <code>df = N - 2</code> at <code>α = 0.05</code>.
+                    </li>
+                    <li>
+                        <b>Cronbach's Alpha (Reliability):</b> Evaluates whether the set of items reliably measures a cohesive construct. Values above 0.70 demonstrate acceptable reliability, while values above 0.80 indicate good-to-excellent internal consistency.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Side: Reference Benchmarks & Attribution -->
+        <div class="col-lg-4">
+            <!-- Reference Study Card -->
+            <div class="card-academic p-4 mb-4 border-info">
+                <span class="badge bg-info text-dark fw-bold mb-2">Published Findings</span>
+                <h5 class="fw-bold text-dark mb-2">Reference Paper Benchmarks</h5>
+                <p class="text-muted small mb-3">
+                    Results originally reported in the baseline academic literature:
+                </p>
+                
+                <div class="border rounded-3 p-3 bg-light mb-3 small">
+                    <div class="fw-bold text-primary mb-1">High School Students</div>
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Overall Awareness:</span> <strong class="text-success">86.0% (Good)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Password Management:</span> <strong>81.7% (Good)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Social Media Use:</span> <strong>87.4% (Good)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted">
+                        <span>Email Use:</span> <strong>88.9% (Good)</strong>
+                    </div>
+                </div>
+
+                <div class="border rounded-3 p-3 bg-light small mb-3">
+                    <div class="fw-bold text-warning mb-1">High School Teachers</div>
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Overall Awareness:</span> <strong class="text-danger">46.3% (Poor)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Password Management:</span> <strong>35.9% (Poor)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted mb-1">
+                        <span>Social Media Use:</span> <strong>59.4% (Average)</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted">
+                        <span>Email Use:</span> <strong>43.6% (Poor)</strong>
+                    </div>
+                </div>
+
+                <div class="small text-muted fst-italic">
+                    Notice: These benchmarks are maintained separately from live application submissions.
+                </div>
+            </div>
+
+            <!-- Academic Attribution & Ethics Card -->
+            <div class="card-academic p-4 bg-light border">
+                <h6 class="fw-bold text-dark mb-2">
+                    <i class="fa-solid fa-scale-balanced text-primary me-1"></i> Academic Attribution
+                </h6>
+                <p class="small text-muted mb-2">
+                    This software system is developed as a final-year B.Tech computer science academic implementation inspired by and modeled upon the methodology of the peer-reviewed paper:
+                </p>
+                <div class="p-2.5 bg-white border rounded-2 small text-dark fst-italic mb-3">
+                    "Measuring information security behaviour of high school students and teachers"
+                </div>
+                <p class="small text-muted mb-0">
+                    Designed for college project evaluation, demonstration, and student/faculty security behavior assessment.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

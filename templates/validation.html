@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Questionnaire Validity & Reliability | {{ config.PROJECT_TITLE }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-lg-5 py-4">
+    <!-- Header Block -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 mb-2 fw-semibold">
+                <i class="fa-solid fa-calculator me-1"></i> Psychometric Statistical Evaluation
+            </span>
+            <h2 class="fw-bold text-dark mb-0">Questionnaire Validity & Reliability Analysis</h2>
+            <p class="text-muted small mb-0">Reproducing empirical SPSS statistical procedures using Python, SciPy, and NumPy.</p>
+        </div>
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="fa-solid fa-arrow-left me-1"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistical Methodology Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card-academic p-4 h-100">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <div class="p-2 rounded bg-primary bg-opacity-10 text-primary">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-0">Validity: Pearson Item-Total Correlation</h5>
+                </div>
+                <p class="text-muted small mb-2">
+                    Measures whether each survey item accurately measures the target construct by correlating each item's score against the composite score of all items.
+                </p>
+                <div class="bg-light p-3 rounded-3 small">
+                    <div class="mb-1"><b>Decision Rule:</b> An item is statistically valid if:</div>
+                    <code class="d-block mb-1 text-primary">r_calculated &gt; r_critical  AND  p_value &lt; 0.05 (two-tailed)</code>
+                    <div class="text-muted" style="font-size: 0.8rem;">
+                        Current Sample: <b>N = {{ analysis.sample_size }}</b> (df = {{ analysis.sample_size - 2 if analysis.sample_size >= 2 else 0 }}). Dynamic critical r = <b>{{ analysis.critical_r if analysis.critical_r else 'N/A (N < 3)' }}</b>.
+                        (Original study reported r_table ≈ 0.142 for their specific sample size).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card-academic p-4 h-100">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <div class="p-2 rounded bg-success bg-opacity-10 text-success">
+                        <i class="fa-solid fa-arrows-spin"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-0">Reliability: Cronbach's Alpha (α)</h5>
+                </div>
+                <p class="text-muted small mb-2">
+                    Assesses the internal consistency and stability of the scale across repeated observations. High alpha indicates items within the construct measure a shared underlying dimension.
+                </p>
+                <div class="bg-light p-3 rounded-3 small">
+                    <div class="mb-1"><b>Cronbach's Alpha Formula:</b></div>
+                    <code class="d-block mb-1 text-success">α = (k / (k - 1)) * [1 - (Σ σ²_items / σ²_total)]</code>
+                    <div class="text-muted" style="font-size: 0.8rem;">
+                        Where <i>k</i> is the number of scale items, <i>σ²_items</i> is item variance, and <i>σ²_total</i> is composite variance.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1: Validity Analysis Table -->
+    <div class="card-academic p-4 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-dark mb-0">
+                <i class="fa-solid fa-table-list text-primary me-2"></i> Item-Total Correlation Validity Results
+            </h5>
+            <span class="badge bg-light text-secondary border">α = {{ analysis.alpha_level }} Significance</span>
+        </div>
+        
+        {% if not analysis.can_calculate %}
+        <div class="alert alert-info small mb-3">
+            <i class="fa-solid fa-circle-info me-1"></i> {{ analysis.message }}
+        </div>
+        {% endif %}
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 8%;">Item Code</th>
+                        <th style="width: 18%;">Focus Area</th>
+                        <th style="width: 38%;">Question Statement</th>
+                        <th style="width: 9%;" class="text-center">Item Mean</th>
+                        <th style="width: 9%;" class="text-center">Pearson r</th>
+                        <th style="width: 9%;" class="text-center">p-value</th>
+                        <th style="width: 9%;" class="text-center">Validity Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in analysis.validity_items %}
+                    <tr>
+                        <td><span class="badge bg-secondary-subtle text-secondary border fw-bold">{{ item.code }}</span></td>
+                        <td class="small fw-semibold">{{ item.focus_area }}</td>
+                        <td class="small text-muted">"{{ item.text }}"</td>
+                        <td class="text-center fw-semibold">{{ item.mean }}</td>
+                        <td class="text-center fw-bold {% if item.is_valid %}text-primary{% endif %}">{{ item.correlation }}</td>
+                        <td class="text-center small">{{ item.p_value }}</td>
+                        <td class="text-center">
+                            {% if item.is_valid %}
+                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                                <i class="fa-solid fa-check me-1"></i> Valid
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1">
+                                {{ item.status }}
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="small text-muted mt-3">
+            * <i>r_critical</i> is calculated adaptively based on sample size (df = N - 2, two-tailed t-distribution). At current N = {{ analysis.sample_size }}, r_critical = <b>{{ analysis.critical_r if analysis.critical_r else 'N/A' }}</b>.
+        </div>
+    </div>
+
+    <!-- Section 2: Reliability Analysis Table & Benchmark Comparison -->
+    <div class="card-academic p-4 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-dark mb-0">
+                <i class="fa-solid fa-chart-line text-success me-2"></i> Cronbach's Alpha Scale Reliability
+            </h5>
+            <span class="badge bg-success-subtle text-success border border-success-subtle">Internal Consistency</span>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Focus Area / Scale Dimension</th>
+                                <th class="text-center">Items (k)</th>
+                                <th class="text-center">Live Project α</th>
+                                <th class="text-center">Reliability Interpretation</th>
+                                <th class="text-center bg-light">Reference Paper α</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key in ['password', 'social_media', 'email', 'overall'] %}
+                            {% set rel = analysis.reliability[key] %}
+                            <tr>
+                                <td class="fw-semibold text-dark">
+                                    <i class="fa-solid {% if key == 'password' %}fa-key text-primary{% elif key == 'social_media' %}fa-users text-info{% elif key == 'email' %}fa-envelope text-warning{% else %}fa-globe text-secondary{% endif %} me-2"></i>
+                                    {{ rel.focus_area }}
+                                </td>
+                                <td class="text-center">{{ rel.k }}</td>
+                                <td class="text-center fw-bold text-success fs-6">
+                                    {{ rel.alpha if rel.alpha is not None else 'N/A' }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-secondary-subtle text-dark border">
+                                        {{ rel.interpretation }}
+                                    </span>
+                                </td>
+                                <td class="text-center fw-semibold text-primary bg-light">
+                                    {{ rel.ref_value }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="small text-muted mt-2">
+                    <b>Note:</b> "Reference Paper α" values are reported directly from the published research study (Password = 0.877, Social Media = 0.823, Email = 0.955) for comparison against your live project data.
+                </div>
+            </div>
+
+            <!-- Reliability Interpretation Scale Card -->
+            <div class="col-lg-4">
+                <div class="p-3 bg-light rounded-3 border h-100">
+                    <h6 class="fw-bold text-dark mb-2">Psychometric Scale Interpretation</h6>
+                    <div class="list-group list-group-flush small">
+                        <div class="list-group-item bg-transparent d-flex justify-content-between px-0 py-1">
+                            <span>α ≥ 0.90</span>
+                            <span class="fw-bold text-success">Excellent Reliability</span>
+                        </div>
+                        <div class="list-group-item bg-transparent d-flex justify-content-between px-0 py-1">
+                            <span>0.80 ≤ α &lt; 0.89</span>
+                            <span class="fw-bold text-primary">Good Reliability</span>
+                        </div>
+                        <div class="list-group-item bg-transparent d-flex justify-content-between px-0 py-1">
+                            <span>0.70 ≤ α &lt; 0.79</span>
+                            <span class="fw-bold text-info">Acceptable Reliability</span>
+                        </div>
+                        <div class="list-group-item bg-transparent d-flex justify-content-between px-0 py-1">
+                            <span>0.60 ≤ α &lt; 0.69</span>
+                            <span class="fw-bold text-warning">Questionable</span>
+                        </div>
+                        <div class="list-group-item bg-transparent d-flex justify-content-between px-0 py-1">
+                            <span>α &lt; 0.60</span>
+                            <span class="fw-bold text-danger">Poor Reliability</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

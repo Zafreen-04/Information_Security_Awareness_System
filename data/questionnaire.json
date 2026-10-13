@@ -1,0 +1,70 @@
+{
+  "scale": [
+    {"value": 1, "label": "Strongly Disagree"},
+    {"value": 2, "label": "Disagree"},
+    {"value": 3, "label": "Neutral"},
+    {"value": 4, "label": "Agree"},
+    {"value": 5, "label": "Strongly Agree"}
+  ],
+  "focus_areas": [
+    "Password Management",
+    "Social Media Use",
+    "Email Use"
+  ],
+  "questions": [
+    {
+      "code": "ISBP1",
+      "focus_area": "Password Management",
+      "text": "I always use different passwords for each of my accounts.",
+      "order": 1
+    },
+    {
+      "code": "ISBP2",
+      "focus_area": "Password Management",
+      "text": "I never share my passwords with my friends or family.",
+      "order": 2
+    },
+    {
+      "code": "ISBP3",
+      "focus_area": "Password Management",
+      "text": "I always use a combination of numbers, letters and symbols to make a password.",
+      "order": 3
+    },
+    {
+      "code": "ISBS1",
+      "focus_area": "Social Media Use",
+      "text": "I always read the privacy settings of my social media or applications.",
+      "order": 4
+    },
+    {
+      "code": "ISBS2",
+      "focus_area": "Social Media Use",
+      "text": "I always think about the negative effect that might happen before posting something on my social media.",
+      "order": 5
+    },
+    {
+      "code": "ISBS3",
+      "focus_area": "Social Media Use",
+      "text": "I always filter what I would post on social media.",
+      "order": 6
+    },
+    {
+      "code": "ISBE1",
+      "focus_area": "Email Use",
+      "text": "I never click on suspicious links even if they are from people that I know.",
+      "order": 7
+    },
+    {
+      "code": "ISBE2",
+      "focus_area": "Email Use",
+      "text": "I never open a file that has been sent to me by people that I don't know.",
+      "order": 8
+    },
+    {
+      "code": "ISBE3",
+      "focus_area": "Email Use",
+      "text": "I never click on links that are sent to me from people that I don't know.",
+      "order": 9
+    }
+  ]
+}

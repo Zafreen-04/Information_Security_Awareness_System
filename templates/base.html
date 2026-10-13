@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.PROJECT_TITLE }}{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- Custom Application CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('index') }}">
+                <i class="fa-solid fa-shield-halved fa-lg"></i>
+                <div class="d-flex flex-column">
+                    <span class="lh-1">IS-Awareness System</span>
+                    <small class="text-secondary-subtle" style="font-size: 0.68rem; font-weight: normal;">Research-Based Assessment</small>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">
+                            <i class="fa-solid fa-house me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'questionnaire' %}active{% endif %}" href="{{ url_for('questionnaire') }}">
+                            <i class="fa-solid fa-clipboard-question me-1"></i> Assessment
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">
+                            <i class="fa-solid fa-chart-pie me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'respondents' %}active{% endif %}" href="{{ url_for('respondents') }}">
+                            <i class="fa-solid fa-users me-1"></i> Respondents
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'validation' %}active{% endif %}" href="{{ url_for('validation') }}">
+                            <i class="fa-solid fa-square-poll-vertical me-1"></i> Validity & Reliability
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'recommendations' %}active{% endif %}" href="{{ url_for('recommendations') }}">
+                            <i class="fa-solid fa-lightbulb me-1"></i> Recommendations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">
+                            <i class="fa-solid fa-circle-info me-1"></i> About Study
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="{{ url_for('questionnaire') }}" class="btn btn-primary btn-sm px-3 shadow-sm">
+                        <i class="fa-solid fa-pen-to-square me-1"></i> Take Assessment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages Container -->
+    <div class="container-fluid px-lg-5 mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show shadow-sm" role="alert">
+                        <i class="fa-solid {% if category == 'success' %}fa-circle-check{% elif category == 'info' %}fa-circle-info{% else %}fa-triangle-exclamation{% endif %} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Dynamic Content -->
+    <main class="flex-grow-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Academic Footer -->
+    <footer>
+        <div class="container-fluid px-lg-5">
+            <div class="row align-items-center gy-3">
+                <div class="col-md-6 text-center text-md-start">
+                    <div class="fw-bold text-light mb-1">
+                        {{ config.PROJECT_TITLE }}
+                    </div>
+                    <div>{{ config.PROJECT_SUBTITLE }}</div>
+                    <div class="small text-secondary mt-1">
+                        Academic Implementation & Statistical Analysis System for Students and Educators
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div>Inspired by the research methodology of:</div>
+                    <div class="fst-italic text-light small">
+                        "Measuring information security behaviour of high school students and teachers"
+                    </div>
+                    <div class="mt-2 small text-secondary">
+                        Technology Stack: Python &bull; Flask &bull; SQLite &bull; SciPy &bull; ReportLab &bull; Chart.js
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Application JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
